@@ -1,0 +1,5 @@
+<select id="{{ name }}" {{ $props.serializeExcept(['opts']) }}>
+	@each(opt in opts)
+		<option value="{{ opt.id }}">{{ opt.name }}</option>
+	@end
+</select>
