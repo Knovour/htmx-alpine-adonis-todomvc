@@ -1,6 +1,6 @@
 ```
 npm i
-node ace serve --watch
+npm run dev
 ```
 
 只有更動下列的資料夾跟檔案

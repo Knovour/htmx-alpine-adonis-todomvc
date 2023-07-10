@@ -1,8 +1,0 @@
-@!select({
-	name: 'space',
-	'hx-get': `/clickup/folder?token=${token}`,
-	'hx-trigger': 'htmx:afterSwap, change',
-	'hx-target': '[name=folder]',
-	opts: spaces
-})
-@!select({ name: 'taskTmpl', opts: tmpls })

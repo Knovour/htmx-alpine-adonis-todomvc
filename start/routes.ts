@@ -22,7 +22,12 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ view }) => view.render('index'))
 
-Route.post('/clickup', 'ClickupController.init')
-Route.get('/clickup/space', 'ClickupController.space')
-Route.get('/clickup/folder', 'ClickupController.folder')
-Route.get('/clickup/list', 'ClickupController.list')
+Route.post('/todo/add', 'TodoController.add')
+
+Route.patch('/todo/:id/update', 'TodoController.update')
+
+Route.patch('/todo/:id/toggle', 'TodoController.toggle')
+Route.put('/todo/toggle', 'TodoController.toggleAll')
+
+Route.delete('/todo/:id/del', 'TodoController.del')
+Route.delete('/todo/del', 'TodoController.delAll')
