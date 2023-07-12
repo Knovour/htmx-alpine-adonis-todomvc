@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ view }) => view.render('index'))
 
-Route.post('/todo/add', 'TodoController.add')
+Route.post('/todo/create', 'TodoController.create')
 
 Route.patch('/todo/:id/update', 'TodoController.update')
 

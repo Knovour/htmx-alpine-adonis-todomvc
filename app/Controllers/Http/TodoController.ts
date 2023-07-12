@@ -2,10 +2,10 @@ import crypto from 'crypto'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class TodoController {
-	public async add({ view, request }: HttpContextContract) {
+	public async create({ view, request }: HttpContextContract) {
 		const task = {
 			id: crypto.getRandomValues(new Uint32Array(1)),
-			name: request.body().add,
+			name: request.body().name,
 		}
 
 		console.log(`Add: ${task.id} - ${task.name}`)

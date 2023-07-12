@@ -2,10 +2,31 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Template • TodoMVC</title>
+		<title>TodoMVC</title>
 		<link rel="stylesheet" href="/todo.css">
-		<!-- CSS overrides - remove if you don't need it -->
+
 		<script defer src="https://unpkg.com/htmx.org"></script>
+		<script defer>
+			document.addEventListener('alpine:init', () =>
+        Alpine.store('todo', {
+					tasks: [],
+					completed: [],
+					show: 'all',
+					filter(id) {
+						const isCompleted = this.completed.includes(id)
+						return this.show === 'all' || (this.show === 'active' && !isCompleted) || (this.show === 'completed' && isCompleted)
+					},
+					delTask(id) {
+						this.tasks = this.tasks.filter(taskId => taskId !== id)
+						this.completed = this.completed.filter(taskId => taskId !== id)
+					},
+					delCompleted() {
+						this.tasks = this.tasks.filter(taskId => !this.completed.includes(taskId))
+						this.completed = []
+					}
+				})
+			)
+		</script>
 		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 	</head>
 	<body>
