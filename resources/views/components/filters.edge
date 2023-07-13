@@ -1,0 +1,7 @@
+<ul class="filters">
+	@each(status in filters)
+		<li>
+			<a :class="$store.todo.show === '{{ status }}' && 'selected'" href="#" @click="$store.todo.show = '{{ status }}'">{{ capitalCase(status) }}</a>
+		</li>
+	@end
+</ul>

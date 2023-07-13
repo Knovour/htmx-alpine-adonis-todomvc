@@ -1,0 +1,8 @@
+<footer class="footer" hidden x-effect="$el.hidden = !$store.todo.tasks.length">
+	<!-- This should be `0 items left` by default -->
+	{{{ await $slots.count() }}}
+	<!-- Remove this if you don't implement routing -->
+	{{{ await $slots.main() }}}
+	<!-- Hidden if no completed items are left ↓ -->
+	{{{ await $slots.clear() }}}
+</footer>

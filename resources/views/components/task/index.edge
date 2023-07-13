@@ -1,0 +1,17 @@
+<li
+	:class="{
+		completed: $store.todo.completed.includes('{{ id }}'),
+		editing
+	}"
+	x-data="{ editing: false }"
+	x-init="$store.todo.tasks.push('{{ id }}')"
+	x-effect="!$store.todo.tasks.includes('{{ id }}') && $el.remove()"
+	x-show="$store.todo.filter('{{ id }}')"
+>
+	<div class="view">
+		{{{ await $slots.toggle() }}}
+		<label @dblclick="editing = true">{{ name }}</label>
+		{{{ await $slots.destory() }}}
+	</div>
+	{{{ await $slots.edit() }}}
+</li>

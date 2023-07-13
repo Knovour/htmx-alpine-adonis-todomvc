@@ -1,0 +1,5 @@
+<button
+	class="destroy"
+	hx-delete="/todo/{{ id }}/del"
+	@htmx:after-request="$store.todo.delTask('{{ id }}')"
+></button>

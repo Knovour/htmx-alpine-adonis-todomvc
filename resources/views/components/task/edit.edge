@@ -1,0 +1,9 @@
+<input
+	class="edit"
+	value="{{ name }}"
+	@keyup.enter="editing = false"
+	@keyup.esc="editing = false"
+	name="newName"
+	hx-patch="/todo/{{ id }}/update"
+	hx-target="previous .view label"
+>

@@ -3,8 +3,7 @@
 @section('body')
 	<section class="todoapp" x-data>
 		<input type="hidden" x-model="$store.todo.completed" name="completedId" />
-		<header class="header">
-			<h1>todos</h1>
+		@component('components/header')
 			<input
 				class="new-todo"
 				placeholder="What needs to be done?"
@@ -15,9 +14,9 @@
 				hx-swap="afterbegin"
 				@htmx:after-request="$event.target.value = ''"
 			>
-		</header>
+		@end
 		<!-- This section should be hidden by default and shown when there are todos -->
-		<section class="main">
+		@component('components/main')
 			<input
 				id="toggle-all"
 				class="toggle-all"
@@ -28,34 +27,32 @@
 				@change="$store.todo.completed = $store.todo.completed.length !== $store.todo.tasks.length ? $store.todo.tasks : []"
 			>
 			<label for="toggle-all">Mark all as complete</label>
-			<ul class="todo-list"></ul>
-		</section>
+		@end
 		<!-- This footer should be hidden by default and shown when there are todos -->
-		<footer class="footer" hidden x-effect="$el.hidden = !$store.todo.tasks.length">
-			<!-- This should be `0 items left` by default -->
-			<span class="todo-count">
-				<strong x-text="$store.todo.tasks.length - $store.todo.completed.length"></strong>
-				item left
-			</span>
-			<!-- Remove this if you don't implement routing -->
-			<ul class="filters" x-data="{ filters: ['all', 'active', 'completed'] }">
-				<template x-for="status in filters">
-					<li>
-						<a :class="$store.todo.show === status && 'selected'" href="#" @click="$store.todo.show = status" x-text="status"></a>
-					</li>
-				</template>
-			</ul>
-			<!-- Hidden if no completed items are left ↓ -->
-			<button
-				class="clear-completed"
-				x-show="$store.todo.completed.length"
-				hx-delete="/todo/del"
-				hx-include="[name='completedId']"
-				hx-swap="none"
-				@htmx:after-request="$store.todo.delCompleted"
-			>
-				Clear completed
-			</button>
-		</footer>
+		@component('components/footer')
+			@slot('count')
+				<span class="todo-count">
+					<strong x-text="$store.todo.tasks.length - $store.todo.completed.length"></strong>
+					item left
+				</span>
+			@end
+
+			@!filters({
+				filters: ['all', 'active', 'completed']
+			})
+
+			@slot('clear')
+				<button
+					class="clear-completed"
+					x-show="$store.todo.completed.length"
+					hx-delete="/todo/del"
+					hx-include="[name='completedId']"
+					hx-swap="none"
+					@htmx:after-request="$store.todo.delCompleted"
+				>
+					Clear completed
+				</button>
+			@end
+		@end
 	</section>
 @end

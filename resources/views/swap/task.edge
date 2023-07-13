@@ -1,35 +1,13 @@
-<li
-	:class="{
-		completed: $store.todo.completed.includes('{{ id }}'),
-		editing
-	}"
-	x-data="{ editing: false }"
-	x-init="$store.todo.tasks.push('{{ id }}')"
-	x-effect="!$store.todo.tasks.includes('{{ id }}') && $el.remove()"
-	x-show="$store.todo.filter('{{ id }}')"
->
-	<div class="view">
-		<input
-			class="toggle"
-			type="checkbox"
-			value="{{ id }}"
-			x-model="$store.todo.completed"
-			hx-patch="/todo/{{ id }}/toggle"
-		>
-		<label @dblclick="editing = true">{{ name }}</label>
-		<button
-			class="destroy"
-			hx-delete="/todo/{{ id }}/del"
-			@htmx:after-request="$store.todo.delTask('{{ id }}')"
-		></button>
-	</div>
-	<input
-		class="edit"
-		value="{{ name }}"
-		@keyup.enter="editing = false"
-		@keyup.esc="editing = false"
-		name="newName"
-		hx-patch="/todo/{{ id }}/update"
-		hx-target="previous .view label"
-	>
-</li>
+@component('components/task/index', { id, name })
+	@slot('toggle')
+		@!task.toggle({ id })
+	@end
+
+	@slot('destory')
+		@!task.destory({ id })
+	@end
+
+	@slot('edit')
+		@!task.edit({ id, name })
+	@end
+@end

@@ -1,0 +1,7 @@
+<input
+	class="toggle"
+	type="checkbox"
+	value="{{ id }}"
+	x-model="$store.todo.completed"
+	hx-patch="/todo/{{ id }}/toggle"
+>
